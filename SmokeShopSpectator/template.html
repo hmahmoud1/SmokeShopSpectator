@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>__TITLE__</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --steel: #2F3E4C;
+    --steel-light: #4A5B6B;
+    --floor: #E6E9EC;
+    --label: #FFFFFF;
+    --ink: #1E2A35;
+    --muted: #5C6B78;
+    --rule: #D5DADF;
+    --tape: #F2C230;
+    --focus: #2F6FB0;
+    --display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+    --body: "Barlow", "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--floor);
+    color: var(--ink);
+    font: 16px/1.5 var(--body);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  /* Header */
+  .masthead {
+    background: var(--steel);
+    color: #fff;
+    padding: calc(28px + env(safe-area-inset-top, 0px)) 24px 24px;
+  }
+  .masthead-inner, main { max-width: 1160px; margin: 0 auto; }
+  .masthead-inner { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 32px; }
+  .wordmark {
+    font: 700 clamp(1.9rem, 8vw, 3.6rem)/0.95 var(--display);
+    overflow-wrap: anywhere;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .tagline { margin: 8px 0 0; color: #C9D3DC; max-width: 52ch; }
+  .updated { color: #C9D3DC; font-size: 0.95rem; text-align: right; }
+  @media (max-width: 600px) { .updated { text-align: left; } }
+  .updated strong { color: #fff; font-weight: 600; }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 28px;
+    padding: 28px 24px 48px;
+  }
+  @media (max-width: 880px) { main { grid-template-columns: minmax(0, 1fr); } }
+
+  h2 {
+    font: 700 1.6rem/1.1 var(--display);
+    margin: 0 0 4px;
+  }
+  .section-note { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
+
+  /* Ohio & Cleveland strip: the one loud element */
+  .local {
+    background: var(--label);
+    margin-bottom: 32px;
+    position: relative;
+  }
+  .local::before {
+    content: "";
+    display: block;
+    height: 12px;
+    background: repeating-linear-gradient(-45deg, var(--tape) 0 16px, var(--steel) 16px 32px);
+  }
+  .local-body { padding: 18px 20px 6px; }
+
+  /* Story list */
+  .panel { background: var(--label); }
+  .stories { list-style: none; margin: 0; padding: 0; }
+  .story { padding: 14px 20px; border-top: 1px solid var(--rule); }
+  .local .story { padding-left: 0; padding-right: 0; }
+  .local .story:first-child, .panel .story:first-child { border-top: 0; }
+  .story-title {
+    font: 600 1.08rem/1.35 var(--body);
+    text-decoration: none;
+    display: inline;
+  }
+  .story-title:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .story-meta { color: var(--muted); font-size: 0.9rem; margin-top: 3px; }
+  .story-summary { margin: 6px 0 0; font-size: 0.95rem; color: #34424F; max-width: 75ch; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.8rem; line-height: 1; padding: 4px 8px 4px 6px;
+    border: 1px solid var(--rule); background: #F7F8F9; color: #34424F;
+  }
+  .swatch { width: 10px; height: 10px; flex: none; }
+
+  /* Filters */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 0 0 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font: 500 0.9rem/1 var(--body);
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 11px; border: 1px solid #B9C2CA; background: var(--label);
+    color: var(--ink); cursor: pointer;
+  }
+  .chip[aria-pressed="true"] { background: var(--steel); border-color: var(--steel); color: #fff; }
+  .search {
+    font: 400 0.95rem var(--body); padding: 8px 10px; min-width: 220px; flex: 1 1 220px;
+    border: 1px solid #B9C2CA; background: var(--label); color: var(--ink);
+  }
+  .count { color: var(--muted); font-size: 0.9rem; margin: 0 0 8px; }
+  .empty { padding: 24px 20px; color: var(--muted); }
+  .empty button { font: inherit; color: var(--focus); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+
+  /* Sidebar */
+  aside .block { background: var(--label); padding: 18px 20px; margin-bottom: 20px; }
+  aside h2 { font-size: 1.3rem; }
+  .source-group { margin-top: 14px; }
+  .source-group h3 { font: 600 0.95rem var(--body); margin: 0 0 6px; color: var(--muted); }
+  .source-list { list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
+  .source-list li { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-top: 1px solid var(--rule); }
+  .source-list li:first-child { border-top: 0; }
+  .source-list .down { color: #A3282B; }
+  .warn { background: #FFF6D6; border-left: 4px solid var(--tape); padding: 10px 12px; font-size: 0.9rem; margin-top: 12px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <h1 class="wordmark" id="site-title"></h1>
+      <p class="tagline" id="tagline"></p>
+    </div>
+    <p class="updated" id="updated"></p>
+  </div>
+</header>
+
+<main>
+  <div>
+    <section class="local" aria-labelledby="local-heading">
+      <div class="local-body">
+        <h2 id="local-heading">Ohio &amp; Cleveland</h2>
+        <p class="section-note">Stories that mention Ohio or the Cleveland area. These are the ones most likely to change what ships to which store.</p>
+        <ul class="stories" id="local-list"></ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="all-heading">
+      <h2 id="all-heading">All stories</h2>
+      <p class="section-note">Filter by the same tags used on inventory SKUs.</p>
+      <div class="toolbar">
+        <div class="chips" id="chips" role="group" aria-label="Filter by tag"></div>
+        <input class="search" id="search" type="search" placeholder="Search headlines" aria-label="Search headlines">
+      </div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="panel"><ul class="stories" id="all-list"></ul></div>
+    </section>
+  </div>
+
+  <aside>
+    <div class="block">
+      <h2>Sources</h2>
+      <div id="sources"></div>
+    </div>
+  </aside>
+</main>
+
+<noscript><p style="padding:24px">Turn on JavaScript to see the news list. The raw data is in stories.json.</p></noscript>
+
+<script>
+const DATA = __DATA__;
+const tagById = Object.fromEntries(DATA.tags.map(t => [t.id, t]));
+let activeTag = null;
+let query = "";
+
+const el = (tag, attrs = {}, ...kids) => {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") node.className = v;
+    else if (k === "text") node.textContent = v;
+    else node.setAttribute(k, v);
+  }
+  kids.flat().forEach(k => k && node.append(k));
+  return node;
+};
+
+function ago(iso) {
+  if (!iso) return "";
+  const mins = Math.round((Date.now() - new Date(iso)) / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} min ago`;
+  const hrs = Math.round(mins / 60);
+  if (hrs < 24) return `${hrs} hr ago`;
+  const days = Math.round(hrs / 24);
+  return days === 1 ? "yesterday" : `${days} days ago`;
+}
+
+function tagChip(id) {
+  const t = tagById[id];
+  if (!t) return null;
+  return el("span", { class: "tag" }, el("span", { class: "swatch", style: `background:${t.color}` }), t.label);
+}
+
+function storyItem(s) {
+  const meta = [s.publisher, ago(s.published)].filter(Boolean).join(", ");
+  return el("li", { class: "story" },
+    el("a", { class: "story-title", href: s.link, target: "_blank", rel: "noopener", text: s.title }),
+    el("div", { class: "story-meta", text: meta }),
+    s.summary ? el("p", { class: "story-summary", text: s.summary }) : null,
+    s.tags.length ? el("div", { class: "tags" }, s.tags.map(tagChip)) : null
+  );
+}
+
+function renderHeader() {
+  document.getElementById("site-title").textContent = DATA.site.title;
+  document.getElementById("tagline").textContent = DATA.site.tagline;
+  const built = new Date(DATA.built);
+  const up = document.getElementById("updated");
+  up.replaceChildren("Last updated ", el("strong", { text: ago(DATA.built) }), el("br"),
+    built.toLocaleString([], { dateStyle: "medium", timeStyle: "short" }));
+}
+
+function renderLocal() {
+  const local = DATA.stories.filter(s => s.tags.some(t => tagById[t]?.kind === "local")).slice(0, 8);
+  const list = document.getElementById("local-list");
+  list.replaceChildren(...(local.length ? local.map(storyItem)
+    : [el("li", { class: "story", text: "No Ohio or Cleveland stories in the last few weeks. Check back after the next update." })]));
+}
+
+function renderChips() {
+  const chips = document.getElementById("chips");
+  const make = (id, label, color) => {
+    const b = el("button", { class: "chip", type: "button", "aria-pressed": String(activeTag === id) },
+      color ? el("span", { class: "swatch", style: `background:${color}` }) : null, label);
+    b.addEventListener("click", () => { activeTag = activeTag === id ? null : id; renderChips(); renderAll(); });
+    return b;
+  };
+  const counts = {};
+  DATA.stories.forEach(s => s.tags.forEach(t => counts[t] = (counts[t] || 0) + 1));
+  chips.replaceChildren(make(null, "All"),
+    ...DATA.tags.filter(t => counts[t.id]).map(t => make(t.id, t.label, t.color)));
+}
+
+function clearFilters() {
+  activeTag = null; query = "";
+  document.getElementById("search").value = "";
+  renderChips(); renderAll();
+}
+
+function renderAll() {
+  const q = query.trim().toLowerCase();
+  const shown = DATA.stories.filter(s =>
+    (!activeTag || s.tags.includes(activeTag)) &&
+    (!q || `${s.title} ${s.summary} ${s.publisher}`.toLowerCase().includes(q)));
+  const list = document.getElementById("all-list");
+  if (shown.length) {
+    list.replaceChildren(...shown.map(storyItem));
+  } else {
+    const btn = el("button", { type: "button", text: "Clear filters" });
+    btn.addEventListener("click", clearFilters);
+    list.replaceChildren(el("li", { class: "empty" }, "No stories match this filter. ", btn, " to see everything."));
+  }
+  document.getElementById("count").textContent =
+    `${shown.length} of ${DATA.stories.length} stories`;
+}
+
+function renderSources() {
+  const groups = {};
+  DATA.sources.forEach(s => (groups[s.group] ||= []).push(s));
+  const box = document.getElementById("sources");
+  box.replaceChildren(...Object.entries(groups).map(([g, list]) =>
+    el("div", { class: "source-group" },
+      el("h3", { text: g }),
+      el("ul", { class: "source-list" }, list.map(s =>
+        el("li", {}, el("span", { text: s.name }),
+          s.ok ? el("span", { text: String(s.count) }) : el("span", { class: "down", text: "not responding" })))))));
+  const down = DATA.sources.filter(s => !s.ok);
+  if (down.length) {
+    box.append(el("p", { class: "warn",
+      text: `${down.length} source${down.length > 1 ? "s" : ""} didn't respond on the last update. If it keeps happening, check the feed address in feeds.json.` }));
+  }
+}
+
+document.getElementById("search").addEventListener("input", e => { query = e.target.value; renderAll(); });
+renderHeader(); renderLocal(); renderChips(); renderAll(); renderSources();
+setInterval(renderHeader, 60000);
+setTimeout(() => location.reload(), 30 * 60 * 1000);
+</script>
+</body>
+</html>

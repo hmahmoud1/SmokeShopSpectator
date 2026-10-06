@@ -1,0 +1,55 @@
+{
+  "site": {
+    "title": "SmokeShopSpectator",
+    "tagline": "Tobacco, vape, hemp and kratom news for the warehouse. Updated every 30 minutes.",
+    "max_age_days": 30,
+    "max_items": 400
+  },
+
+  "_comment_sources": "relevant_only=true keeps only stories that match a product tag (useful for general news sites). Google News searches are reliable; direct feeds may change address over time — if one shows as 'not responding' on the page, fix its URL here.",
+
+  "sources": [
+    { "name": "Ohio Capital Journal", "group": "Ohio & Cleveland", "url": "https://ohiocapitaljournal.com/feed/", "relevant_only": true },
+    { "name": "Signal Cleveland", "group": "Ohio & Cleveland", "url": "https://signalcleveland.org/feed/", "relevant_only": true },
+    { "name": "Google News: Ohio laws", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Ohio+(vape+OR+tobacco+OR+hemp+OR+kratom)+(law+OR+bill+OR+ban+OR+court)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Google News: Cleveland", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Cleveland+Ohio+(%22smoke+shop%22+OR+vape+OR+tobacco+OR+kratom)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+
+    { "name": "Google News: FDA & vapes", "group": "Regulation", "url": "https://news.google.com/rss/search?q=FDA+(e-cigarette+OR+vape+OR+PMTA+OR+%22nicotine+pouch%22)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Google News: Flavor bans", "group": "Regulation", "url": "https://news.google.com/rss/search?q=%22flavored+tobacco%22+OR+%22flavored+vape%22+ban+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Google News: Hemp & kratom", "group": "Regulation", "url": "https://news.google.com/rss/search?q=(hemp+THC+OR+delta-8+OR+kratom)+(ban+OR+law+OR+federal)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+
+    { "name": "CSP Daily News", "group": "Industry", "url": "https://news.google.com/rss/search?q=site:cspdailynews.com+(tobacco+OR+vape+OR+nicotine)+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Smoke Shop Magazine", "group": "Industry", "url": "https://news.google.com/rss/search?q=site:smokeshopmag.com+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "2Firsts", "group": "Industry", "url": "https://news.google.com/rss/search?q=site:2firsts.com+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Tobacco Reporter", "group": "Industry", "url": "https://tobaccoreporter.com/feed/", "relevant_only": false },
+    { "name": "Vapor Voice", "group": "Industry", "url": "https://vaporvoice.net/feed/", "relevant_only": false },
+    { "name": "Vaping Post", "group": "Industry", "url": "https://www.vapingpost.com/feed/", "relevant_only": false },
+    { "name": "Filter", "group": "Industry", "url": "https://filtermag.org/feed/", "relevant_only": true },
+    { "name": "Halfwheel", "group": "Industry", "url": "https://halfwheel.com/feed/", "relevant_only": false }
+  ],
+
+  "_comment_tags": "Tags line up with the SKU compliance tags in the inventory system. 'local' tags feed the Ohio & Cleveland strip. 'product' tags decide relevance for relevant_only sources. Keywords are matched as whole words, case-insensitive.",
+
+  "tags": [
+    { "id": "ohio", "label": "Ohio", "color": "#C9302C", "kind": "local",
+      "keywords": ["ohio", "columbus", "cincinnati", "toledo", "akron", "dayton", "dewine", "ohio statehouse"] },
+    { "id": "cleveland", "label": "Cleveland area", "color": "#7A2E8E", "kind": "local",
+      "keywords": ["cleveland", "cuyahoga", "lakewood", "parma", "euclid", "strongsville", "bibb", "margolius"] },
+    { "id": "flavored", "label": "Flavored", "color": "#B5367A", "kind": "product",
+      "keywords": ["flavor", "flavors", "flavored", "flavour", "flavoured", "menthol"] },
+    { "id": "vape", "label": "Vape & nicotine", "color": "#2F6FB0", "kind": "product",
+      "keywords": ["vape", "vapes", "vaping", "vapor", "e-cigarette", "e-cigarettes", "e-cig", "nicotine", "pouch", "pouches", "zyn", "disposable", "disposables"] },
+    { "id": "tobacco", "label": "Tobacco & cigars", "color": "#6B4F2A", "kind": "product",
+      "keywords": ["tobacco", "cigar", "cigars", "cigarette", "cigarettes", "hookah", "shisha", "smoke shop", "smoke shops"] },
+    { "id": "hemp", "label": "Hemp / THC", "color": "#3C8D5A", "kind": "product",
+      "keywords": ["hemp", "thc", "delta-8", "delta 8", "cbd", "cannabinoid", "cannabinoids", "intoxicating", "sb 56"] },
+    { "id": "kratom", "label": "Kratom", "color": "#A0662B", "kind": "product",
+      "keywords": ["kratom", "7-oh", "mitragynine", "7-hydroxymitragynine"] },
+    { "id": "fda", "label": "FDA", "color": "#1F5A8A", "kind": "topic",
+      "keywords": ["fda", "pmta", "marketing denial", "center for tobacco products"] },
+    { "id": "law", "label": "Laws & courts", "color": "#3F4B57", "kind": "topic",
+      "keywords": ["law", "laws", "bill", "ordinance", "ban", "bans", "banned", "court", "ruling", "lawsuit", "veto", "legislature", "legislation", "injunction", "preemption"] },
+    { "id": "tax", "label": "Tax & licensing", "color": "#8A6D00", "kind": "topic",
+      "keywords": ["tax", "taxes", "excise", "license", "licenses", "licensing", "tax stamp"] }
+  ]
+}
