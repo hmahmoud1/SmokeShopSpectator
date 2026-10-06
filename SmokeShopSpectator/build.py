@@ -127,12 +127,16 @@ def build(config_path, out_dir):
                 existing = seen[key]
                 merged = set(existing["tags"]) | set(tags)
                 existing["tags"] = [t["id"] for t in config["tags"] if t["id"] in merged]
+                if source["name"] not in existing["sources"]:
+                    existing["sources"].append(source["name"])
+                    kept += 1
                 continue
             story = {
                 "title": title,
                 "link": link,
                 "publisher": publisher,
                 "group": source["group"],
+                "sources": [source["name"]],
                 "summary": summary,
                 "published": published.isoformat() if published else None,
                 "tags": tags,

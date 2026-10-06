@@ -126,9 +126,24 @@
   .source-group { margin-top: 14px; }
   .source-group h3 { font: 600 0.95rem var(--body); margin: 0 0 6px; color: var(--muted); }
   .source-list { list-style: none; margin: 0; padding: 0; font-size: 0.92rem; }
-  .source-list li { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-top: 1px solid var(--rule); }
+  .source-list li { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 4px 0; border-top: 1px solid var(--rule); }
   .source-list li:first-child { border-top: 0; }
   .source-list .down { color: #A3282B; }
+  .source-btn {
+    font: inherit; color: var(--ink); background: none; border: 0; padding: 0;
+    text-align: left; cursor: pointer; text-decoration: underline;
+    text-decoration-color: #B9C2CA; text-underline-offset: 3px;
+  }
+  .source-btn:hover { text-decoration-color: var(--ink); }
+  .source-btn[aria-pressed="true"] { font-weight: 600; text-decoration-color: var(--steel); }
+  .source-list li.active { background: #EEF1F4; margin: 0 -8px; padding: 4px 8px; }
+  .source-btn:disabled { color: var(--muted); text-decoration: none; cursor: default; }
+  .active-source {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    background: #EEF1F4; border-left: 4px solid var(--steel);
+    padding: 8px 12px; margin: 0 0 10px; font-size: 0.95rem;
+  }
+  .active-source button { font: inherit; color: var(--focus); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
   .warn { background: #FFF6D6; border-left: 4px solid var(--tape); padding: 10px 12px; font-size: 0.9rem; margin-top: 12px; }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
@@ -162,6 +177,7 @@
         <div class="chips" id="chips" role="group" aria-label="Filter by tag"></div>
         <input class="search" id="search" type="search" placeholder="Search headlines" aria-label="Search headlines">
       </div>
+      <div class="active-source" id="active-source" hidden></div>
       <p class="count" id="count" aria-live="polite"></p>
       <div class="panel"><ul class="stories" id="all-list"></ul></div>
     </section>
@@ -170,6 +186,7 @@
   <aside>
     <div class="block">
       <h2>Sources</h2>
+      <p class="section-note">Click a source to see only its stories.</p>
       <div id="sources"></div>
     </div>
   </aside>
@@ -181,6 +198,7 @@
 const DATA = __DATA__;
 const tagById = Object.fromEntries(DATA.tags.map(t => [t.id, t]));
 let activeTag = null;
+let activeSource = null;
 let query = "";
 
 const el = (tag, attrs = {}, ...kids) => {
@@ -252,15 +270,31 @@ function renderChips() {
 }
 
 function clearFilters() {
-  activeTag = null; query = "";
+  activeTag = null; activeSource = null; query = "";
   document.getElementById("search").value = "";
-  renderChips(); renderAll();
+  renderChips(); renderAll(); renderSources();
+}
+
+function setSource(name) {
+  activeSource = activeSource === name ? null : name;
+  renderAll(); renderSources();
+  if (activeSource) document.getElementById("all-heading").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderActiveSource() {
+  const box = document.getElementById("active-source");
+  if (!activeSource) { box.hidden = true; box.replaceChildren(); return; }
+  const btn = el("button", { type: "button", text: "Show all sources" });
+  btn.addEventListener("click", () => setSource(activeSource));
+  box.replaceChildren(el("span", {}, "Showing stories from ", el("strong", { text: activeSource })), btn);
+  box.hidden = false;
 }
 
 function renderAll() {
   const q = query.trim().toLowerCase();
   const shown = DATA.stories.filter(s =>
     (!activeTag || s.tags.includes(activeTag)) &&
+    (!activeSource || (s.sources || []).includes(activeSource)) &&
     (!q || `${s.title} ${s.summary} ${s.publisher}`.toLowerCase().includes(q)));
   const list = document.getElementById("all-list");
   if (shown.length) {
@@ -270,6 +304,7 @@ function renderAll() {
     btn.addEventListener("click", clearFilters);
     list.replaceChildren(el("li", { class: "empty" }, "No stories match this filter. ", btn, " to see everything."));
   }
+  renderActiveSource();
   document.getElementById("count").textContent =
     `${shown.length} of ${DATA.stories.length} stories`;
 }
@@ -281,9 +316,14 @@ function renderSources() {
   box.replaceChildren(...Object.entries(groups).map(([g, list]) =>
     el("div", { class: "source-group" },
       el("h3", { text: g }),
-      el("ul", { class: "source-list" }, list.map(s =>
-        el("li", {}, el("span", { text: s.name }),
-          s.ok ? el("span", { text: String(s.count) }) : el("span", { class: "down", text: "not responding" })))))));
+      el("ul", { class: "source-list" }, list.map(s => {
+        const btn = el("button", { class: "source-btn", type: "button", text: s.name,
+          "aria-pressed": String(activeSource === s.name) });
+        if (!s.count) btn.disabled = true;
+        else btn.addEventListener("click", () => setSource(s.name));
+        return el("li", { class: activeSource === s.name ? "active" : "" }, btn,
+          s.ok ? el("span", { text: String(s.count) }) : el("span", { class: "down", text: "not responding" }));
+      })))));
   const down = DATA.sources.filter(s => !s.ok);
   if (down.length) {
     box.append(el("p", { class: "warn",
