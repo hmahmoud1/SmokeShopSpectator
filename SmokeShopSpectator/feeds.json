@@ -13,7 +13,17 @@
     { "name": "Signal Cleveland", "group": "Ohio & Cleveland", "url": "https://signalcleveland.org/feed/", "relevant_only": true },
     { "name": "Google News: Ohio laws", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Ohio+(vape+OR+tobacco+OR+hemp+OR+kratom)+(law+OR+bill+OR+ban+OR+court)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
     { "name": "Google News: Cleveland", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Cleveland+Ohio+(%22smoke+shop%22+OR+vape+OR+tobacco+OR+kratom)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
-
+    { "name": "Google News: Ohio courts", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Ohio+court+(tobacco+OR+vape+OR+hemp+OR+kratom+OR+%22smoke+shop%22)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Google News: Ohio tax & licensing", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Ohio+(tobacco+OR+vape+OR+cigarette+OR+nicotine)+(tax+OR+license+OR+licensing)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Google News: Ohio kratom", "group": "Ohio & Cleveland", "url": "https://news.google.com/rss/search?q=Ohio+kratom+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    
+    { "name": "Court News Ohio", "group": "Watch list", "url": "https://news.google.com/rss/search?q=site:courtnewsohio.gov+(tobacco+OR+vape+OR+hemp+OR+marijuana)+when:60d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Statehouse News Bureau", "group": "Watch list", "url": "https://news.google.com/rss/search?q=site:statenews.org+(tobacco+OR+vape+OR+hemp+OR+kratom)+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": true },
+    { "name": "Ideastream", "group": "Watch list", "url": "https://news.google.com/rss/search?q=site:ideastream.org+(tobacco+OR+vape+OR+%22smoke+shop%22+OR+hemp+OR+kratom)+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": true },
+    { "name": "Cleveland Scene", "group": "Watch list", "url": "https://news.google.com/rss/search?q=site:clevescene.com+(tobacco+OR+vape+OR+%22smoke+shop%22+OR+hemp+OR+kratom)+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": true },
+    { "name": "FDA announcements", "group": "Watch list", "url": "https://news.google.com/rss/search?q=site:fda.gov+(tobacco+OR+e-cigarette+OR+vape)+when:30d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    { "name": "Ohio Dept. of Taxation", "group": "Watch list", "url": "https://news.google.com/rss/search?q=Ohio+%22Department+of+Taxation%22+(cigarette+OR+tobacco+OR+vapor)+when:60d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
+    
     { "name": "Google News: FDA & vapes", "group": "Regulation", "url": "https://news.google.com/rss/search?q=FDA+(e-cigarette+OR+vape+OR+PMTA+OR+%22nicotine+pouch%22)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
     { "name": "Google News: Flavor bans", "group": "Regulation", "url": "https://news.google.com/rss/search?q=%22flavored+tobacco%22+OR+%22flavored+vape%22+ban+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
     { "name": "Google News: Hemp & kratom", "group": "Regulation", "url": "https://news.google.com/rss/search?q=(hemp+THC+OR+delta-8+OR+kratom)+(ban+OR+law+OR+federal)+when:14d&hl=en-US&gl=US&ceid=US:en", "relevant_only": false },
