@@ -97,6 +97,8 @@ def build(config_path, out_dir):
     site = config["site"]
     compiled = compile_tags(config["tags"])
     kinds = {t["id"]: t["kind"] for t in config["tags"]}
+    excludes = [k for k in site.get("exclude_keywords", []) if k.strip()]
+    exclude_rx = re.compile(r"\b(" + "|".join(re.escape(k) for k in excludes) + r")\b", re.IGNORECASE) if excludes else None
     now = datetime.now(timezone.utc)
     cutoff = now - timedelta(days=site.get("max_age_days", 30))
 
@@ -118,6 +120,8 @@ def build(config_path, out_dir):
             summary = clean_text(entry.get("summary"), limit=240)
             if "news.google.com" in source["url"]:
                 summary = ""  # Google News summaries just repeat the headline
+            if exclude_rx and exclude_rx.search(f"{title} {summary}"):
+                continue
             tags = tag_story(f"{title} {summary}", compiled)
             if source.get("relevant_only") and not any(kinds[t] == "product" for t in tags):
                 continue
