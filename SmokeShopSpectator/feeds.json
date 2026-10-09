@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "SmokeShopSpectator",
-    "tagline": "Tobacco, vape, hemp and kratom news for the warehouse. Updated every 30 minutes.",
+    "tagline": "Tobacco, vape, hemp and kratom news. Updated every 30 minutes.",
     "max_age_days": 30,
     "max_items": 400
   },
